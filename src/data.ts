@@ -6,6 +6,7 @@ export interface IPlayer {
   countryOfBirth: string;
   nationality: string;
   role: string;
+  isSelected?: boolean;
 }
 
 export const players: IPlayer[] = [

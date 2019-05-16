@@ -31,6 +31,17 @@ class PlayerContainer extends React.Component<IProps, IState> {
     return (
       <div>
         <div className={styles.chosencontainer}>
+          <article className={styles.chosencard}>
+            <h3
+              className={
+                this.state.playerArray.length === 11
+                  ? styles.teamFull
+                  : styles.teamEmpty
+              }
+            >
+              Your team is full!
+            </h3>
+          </article>
           {this.state.playerArray.map((player, index) => (
             <ChosenTeam key={index} player={player} />
           ))}
@@ -48,6 +59,7 @@ class PlayerContainer extends React.Component<IProps, IState> {
       this.midFielders.length <= 3 &&
       !this.midFielders.includes(player)
     ) {
+      player.isSelected = true;
       this.midFielders.push(player);
     } else if (
       player.position === "Midfielder" &&
@@ -55,6 +67,7 @@ class PlayerContainer extends React.Component<IProps, IState> {
     ) {
       for (var i = 0; i < this.midFielders.length; i++) {
         if (this.midFielders[i] === player) {
+          player.isSelected = false;
           this.midFielders.splice(i, 1);
         }
       }
@@ -63,6 +76,7 @@ class PlayerContainer extends React.Component<IProps, IState> {
       this.defenders.length <= 2 &&
       !this.defenders.includes(player)
     ) {
+      player.isSelected = true;
       this.defenders.push(player);
     } else if (
       player.position === "Defender" &&
@@ -70,6 +84,7 @@ class PlayerContainer extends React.Component<IProps, IState> {
     ) {
       for (var i = 0; i < this.defenders.length; i++) {
         if (this.defenders[i] === player) {
+          player.isSelected = false;
           this.defenders.splice(i, 1);
         }
       }
@@ -78,6 +93,7 @@ class PlayerContainer extends React.Component<IProps, IState> {
       this.attackers.length <= 2 &&
       !this.attackers.includes(player)
     ) {
+      player.isSelected = true;
       this.attackers.push(player);
     } else if (
       player.position === "Attacker" &&
@@ -85,6 +101,7 @@ class PlayerContainer extends React.Component<IProps, IState> {
     ) {
       for (var i = 0; i < this.attackers.length; i++) {
         if (this.attackers[i] === player) {
+          player.isSelected = false;
           this.attackers.splice(i, 1);
         }
       }
@@ -94,11 +111,13 @@ class PlayerContainer extends React.Component<IProps, IState> {
       this.goalKeeper.length < 1 &&
       !this.goalKeeper.includes(player)
     ) {
+      player.isSelected = true;
       this.goalKeeper.push(player);
     } else if (
       player.position === "Goalkeeper" &&
       this.goalKeeper.includes(player)
     ) {
+      player.isSelected = false;
       this.goalKeeper.splice(this.goalKeeper.indexOf(player));
     }
 

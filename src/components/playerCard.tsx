@@ -1,5 +1,5 @@
 import * as React from "react";
-import { IPlayer } from "../data";
+import players, { IPlayer } from "../data";
 import styles from "./playerCard.module.scss";
 
 export interface IProps {
@@ -12,12 +12,18 @@ export interface IState {
 }
 
 class PlayerCard extends React.Component<IProps, IState> {
-  state = { clicked: false };
+  state = {
+    clicked: false
+  };
   public handleClick = () => {
-    this.state.clicked === true
-      ? this.setState({ clicked: false })
-      : this.setState({ clicked: true });
     this.props.onClick(this.props.player);
+    this.props.player.isSelected
+      ? this.setState({
+          clicked: true
+        })
+      : this.setState({
+          clicked: false
+        });
   };
 
   render() {
